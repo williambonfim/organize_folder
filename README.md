@@ -1,15 +1,20 @@
-# organize_folder
+# Organize Files by Extension
 
-The above code is a python script that organizes all files in a specified folder into new folders based on their file type. The script starts by importing the os and shutil modules, which are used to interact with the file system.
+This script is designed to organize all the files in a specified folder into new folders, with each folder being named after the file extension of the files it contains. The script will also handle files without an extension, placing them in a folder named "No_Extension". Hidden files and existing folders will be ignored.
 
-The first step is to specify the path to the folder that you want to organize. This is done by setting the value of the folder_path variable to the desired path.
+To use the script, you will first need to specify the path to the folder you want to organize:
 
-Next, the script gets a list of all files in the specified folder using the os.listdir() function. It then iterates through each file in the list using a for loop.
+```
+folder_path = 'path/to/folder'
+```
 
-For each file, the script first extracts the file extension using the os.path.splitext() function. The os.path.splitext() function returns a tuple containing the file name and the file extension. The script then uses indexing to retrieve only the extension.
+The script will then use the os and shutil modules to get a list of all the files in the specified folder and iterate through them. For each file, the script will:
 
-The script then checks whether the file is hidden by using the file.startswith('.') condition. If the file name starts with a period, it is considered a hidden file and is skipped. The script also checks if the file is a directory using os.path.isdir(os.path.join(folder_path, file)), if it is, it is also skipped.
-
-If the file has no extension, the script creates a new folder called "No_Extension" in the specified folder and moves the file to this folder using the shutil.move() function. If the file has an extension, the script creates a new folder with the same name as the extension and moves the file to this folder. If the folder with the same name as the extension already exists, the file is moved to that folder.
-
-Once the for loop completes, the script prints a message to indicate that the files have been organized into folders by file type.
+1. Get the file extension using os.path.splitext(file)[1].
+2. Check if the file is hidden or is an existing folder using file.startswith('.') or os.path.isdir(os.path.join(folder_path, file)). If it is, the script will ignore the file and move on to the next one.
+3. If the file does not have an extension, it will be moved to a folder named "No_Extension", which will be created if it does not already exist.
+4. If the file does have an extension, the script will create a new folder with the same name as the extension (without the "."), and move the file into it. If the folder already exists, the file will simply be moved into it.
+Finally, the script will print a message to confirm that all the files have been organized into folders by file type.
+```
+print("All files organized into folders by file type.")
+```
